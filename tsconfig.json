@@ -1,0 +1,21 @@
+{
+  "include": [
+    "node_modules/bc-stubs/bc/**/*.d.ts",
+    "node_modules/bc-deeplib/**/*.d.ts",
+    ".types/*.d.ts",
+    "**/*.js",
+    "**/*.ts",
+  ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    
+    "allowJs": true,
+    "checkJs": true,
+    "removeComments": false,
+    "strict": true,
+    "skipLibCheck": true,
+		"noEmit": true
+  }
+}

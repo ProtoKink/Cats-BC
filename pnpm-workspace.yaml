@@ -1,0 +1,2 @@
+overrides:
+  bc-deeplib: link:../BC-DeepLib
