@@ -1,25 +1,36 @@
-import { GUI, initMod } from 'bc-deeplib/deeplib';
+import { GUI, GuiImportExport, initMod, Style, VersionModule } from 'bc-deeplib/deeplib';
 import { CommandsModule } from './modules/commands';
 import { GlobalModule } from './modules/global';
+import { TranslatorModule } from './modules/translator';
+import { V1_Migrator } from './migrators/v1_migrator';
 
-export const { sdk } = initMod({
-  modInfo: {
-    info: {
-      name: 'Cats',
-      version: MOD_VERSION,
-      fullName: 'Chat Auto Translator Script',
-    }
-  },
-  modules: [
-    new GUI({
-      ButtonText: 'CATS',
-      Identifier: 'CATS',
-      Image: `${PUBLIC_URL}/images/mod.svg`,
+initMod({
+  modules: {
+    GUI: new GUI({
+      buttonText: 'CATS',
+      identifier: 'CATS',
+      image: `${PUBLIC_URL}/images/mod.svg`,
     }),
-    new GlobalModule(),
-    new CommandsModule(),
-  ],
+    GlobalModule: new GlobalModule(),
+    CommandsModule: new CommandsModule(),
+    TranslatorModule: new TranslatorModule(),
+    VersionModule: new VersionModule({
+      migrators: [
+        new V1_Migrator()
+      ]
+    })
+  },
   translationOptions: {
     pathToTranslationsFolder: `${PUBLIC_URL}/translations/`,
+    fixedLanguage: true,
+  },
+  mainMenuOptions: {
+    importExportSubscreen: new GuiImportExport({
+      customFileExtension: 'cats',
+    }),
+  },
+  initFunction: () => {
+    Style.injectEmbed('cats-settings-style', `${PUBLIC_URL}/styles/settings.css`);
+    Style.injectEmbed('cats-chat-style', `${PUBLIC_URL}/styles/chat.css`);
   }
 });

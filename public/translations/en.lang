@@ -1,4 +1,16 @@
-mainmenu.title = - Main Menu -
-global.title = — Global Settings —
+mainmenu.title = - CATS Settings -
 
-mainmenu.button.global = Global settings
+mainmenu.button.global = Global Settings
+mainmenu.button.translator = Translator Settings
+
+global.title = - Global Settings -
+global.modEnabled = CATS Mod Enabled
+global.showNewVersionMessage = Show new version message
+global.incomingAutoTranslate = Auto translate incoming messages
+global.outcomingAutoTranslate = Auto translate outcoming messages
+
+translator.title = - Translator Settings -
+translator.incomingLanguagesLabel = Languages for incoming messages
+translator.outcomingLanguagesLabel = Languages for outcoming messages
+translator.source = Source
+translator.target = Target

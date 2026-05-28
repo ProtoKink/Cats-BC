@@ -11,11 +11,11 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     
-    "allowJs": true,
-    "checkJs": true,
+    "allowJs": false,
     "removeComments": false,
     "strict": true,
     "skipLibCheck": true,
-		"noEmit": true
+		"noEmit": true,
+    "noPropertyAccessFromIndexSignature": true
   }
 }

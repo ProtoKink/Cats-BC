@@ -1,70 +1,59 @@
-import { advElement, BaseSubscreen, layout } from 'bc-deeplib/deeplib';
-import { languages } from '../utilities/languages';
+import { advElement, BaseSubscreen, getText, layout } from 'bc-deeplib/deeplib';
 import { GlobalSettingsModel } from '../models/settings';
+import { SubscreenOptions } from 'bc-deeplib/base/base_subscreen';
 
 export class GlobalSubscreen extends BaseSubscreen {
+
+  protected static override subscreenOptions: SubscreenOptions = {
+    name: 'global',
+    icon: `${PUBLIC_URL}/images/cog.svg`
+  };
 
   get settings(): GlobalSettingsModel {
     return super.settings as GlobalSettingsModel;
   }
 
-  get name(): string {
-    return 'global';
-  }
-
   load(): void {
     super.load();
 
-    const modEnabledCheckbox = advElement.createCheckbox({
+    const modEnabledLabel = advElement.createCheckbox({
       id: 'cats-mod-enabled',
-      label: 'CATS Mod Enabled',
+      label: getText('global.modEnabled'),
       setElementValue: () => this.settings.modEnabled,
       setSettingValue: (val) => {
         this.settings.modEnabled = val;
       },
     });
-    layout.appendToSettingsDiv(modEnabledCheckbox);
+    layout.getSettingsDiv().appendChild(modEnabledLabel);
 
-    const doShowNewVersionMessageCheckbox = advElement.createCheckbox({
+    const doShowNewVersionMessageLabel = advElement.createCheckbox({
       id: 'cats-do-show-new-version-message',
-      label: 'Show new version message',
+      label: getText('global.showNewVersionMessage'),
       setElementValue: () => this.settings.doShowNewVersionMessage,
       setSettingValue: (val) => {
         this.settings.doShowNewVersionMessage = val;
       },
     });
-    layout.appendToSettingsDiv(doShowNewVersionMessageCheckbox);
+    layout.getSettingsDiv().appendChild(doShowNewVersionMessageLabel);
 
-    const sourceLangOptions: readonly Omit<HTMLOptions<'option'>, 'tag'>[] = Object.entries(languages).map(([key, value]) => ({
-      attributes: {
-        value: key,
-        label: value,
-        selected: key === this.settings.sourceLang
-      }
-    }));
-
-    const sourceLangDropdown = ElementCreateDropdown('cats-source-lang', sourceLangOptions, (event) => {
-      const sourceLang = (event.target as HTMLSelectElement)?.value;
-      if (!sourceLang) return;
-
-      this.settings.sourceLang = sourceLang;
+    const incomingAutoTranslateCheckbox = advElement.createCheckbox({
+      id: 'cats-incoming-auto-translate',
+      label: getText('global.incomingAutoTranslate'),
+      setElementValue: () => this.settings.incomingAutoTranslate,
+      setSettingValue: (val) => {
+        this.settings.incomingAutoTranslate = val;
+      },
     });
-    layout.appendToSettingsDiv(sourceLangDropdown);
+    layout.appendToSettingsDiv(incomingAutoTranslateCheckbox);
 
-    const targetLangOptions: readonly Omit<HTMLOptions<'option'>, 'tag'>[] = Object.entries(languages).filter(([key]) => key !== 'auto').map(([key, value]) => ({
-      attributes: {
-        value: key,
-        label: value,
-        selected: key === this.settings.targetLang
-      }
-    }));
-
-    const targetLangDropdown = ElementCreateDropdown('cats-target-lang', targetLangOptions, (event) => {
-      const targetLang = (event.target as HTMLSelectElement)?.value;
-      if (!targetLang) return;
-
-      this.settings.targetLang = targetLang;
-    });
-    layout.appendToSettingsDiv(targetLangDropdown);
+    // const outcomingAutoTranslateCheckbox = advElement.createCheckbox({
+    //   id: 'cats-outgoing-auto-translate',
+    //   label: getText('global.outcomingAutoTranslate'),
+    //   setElementValue: () => this.settings.outcomingAutoTranslate,
+    //   setSettingValue: (val) => {
+    //     this.settings.outcomingAutoTranslate = val;
+    //   },
+    // });
+    // layout.appendToSettingsDiv(outcomingAutoTranslateCheckbox);
   }
 }

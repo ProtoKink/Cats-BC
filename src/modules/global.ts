@@ -1,10 +1,15 @@
-import { BaseModule } from 'bc-deeplib/deeplib';
+import { advElement, BaseModule, sdk } from 'bc-deeplib/deeplib';
 import { GlobalSettingsModel } from '../models/settings';
-import { translate } from '../utilities/translation';
-import { Subscreen } from 'bc-deeplib/base/base_subscreen';
+import { TranslatedMessage, TranslatorModule } from './translator';
 import { GlobalSubscreen } from '../screens/global';
+import { googleSourceLanguages } from '../utilities/languages';
+import { catsify } from '../utilities/pretty';
 
 export class GlobalModule extends BaseModule {
+
+  get settingsScreen() {
+    return GlobalSubscreen;
+  }
 
   get settings(): GlobalSettingsModel {
     return super.settings as GlobalSettingsModel;
@@ -14,40 +19,138 @@ export class GlobalModule extends BaseModule {
     super.settings = val;
   }
 
-  get settingsScreen(): Subscreen | null {
-    return GlobalSubscreen;
-  }
-
-  get defaultSettings() {
-    return <GlobalSettingsModel>{
-      modEnabled: true,
-      doShowNewVersionMessage: true,
-      sourceLang: 'auto',
-      targetLang: 'en',
+  get defaultSettings(): GlobalSettingsModel {
+    return {
+      modEnabled: false,
+      doShowNewVersionMessage: false,
+      incomingAutoTranslate: false,
+      // outcomingAutoTranslate: false,
       translationEngine: 'google',
-      deeplApiPlan: 'free',
-      deeplApiKey: '',
     };
   }
 
-  init() {
-    super.init();
+  load() {
+    sdk.hookFunction('ChatRoomMessageDisplay', 0, (args, next) => {
+      const div = next(args);
 
-    ChatRoomRegisterMessageHandler({
-      Description: 'Translates a message and does some stuff with it.',
-      Priority: 501,
-      Callback: (data) => {
-        if (!this.settings.modEnabled) return false;
+      if (!this.settings.modEnabled) return div;
 
-        if (data.Type === 'Chat' && data.Sender !== Player.MemberNumber) {
-          const sourceMessage = data.Content;
-          translate(sourceMessage, this.settings.sourceLang, this.settings.targetLang).then((translatedMessage) => {
-            ChatRoomSendLocal(translatedMessage, 3000);
-          });
-        }
+      const popupMenu = div?.querySelector('.chat-room-message-popup');
+      const sourceMessage = div.querySelector('.chat-room-message-content')?.textContent;
+      const messageId = div.querySelector('.chat-room-message-content')?.getAttribute('msgid') ?? CommonGenerateUniqueID();
+      if (!sourceMessage) return div;
 
-        return false;
-      },
+      if (popupMenu) {
+        const translationButton = createPopupButton(sourceMessage, messageId, div);
+        popupMenu.append(translationButton);
+      }
+
+      if (this.settings.incomingAutoTranslate) {
+        TranslatorModule.translate(sourceMessage).then((translatedMessage) => {
+          if (!translatedMessage) return;
+          if (translatedMessage.text === sourceMessage) return;
+          const element = createTranslatedMessage(translatedMessage, messageId);
+          if (!element) return;
+          div.appendChild(element);
+        });
+      };
+
+      return div;
     });
+
+    // sdk.hookFunction('ServerSend', HookPriority.Observe, (args, next) => {
+    //   if (args[0] !== 'ChatRoomChat') return next(args);
+    //   const data: ServerChatRoomMessage = args[1];
+    //   const messageType = data.Type;
+    //   if (!['Emote', 'Chat', 'Whisper'].includes(messageType)) return next(args);
+    //   if (!this.settings.outcomingAutoTranslate) return next(args);
+
+    //   TranslatorModule.translate(data.Content).then((translatedMessage) => {
+    //     if (!translatedMessage) return;
+    //     if (translatedMessage.text === data.Content) return;
+    //     data.Content += `\n\n[${translatedMessage.text}]`;
+
+    //     return next(args);
+    //   });
+    // });
   }
+}
+
+function createPopupButton(sourceMessage: string, messageId: string, messageElement: HTMLDivElement) {
+  return advElement.createButton({
+    id: `cats-translation-button-${messageId}`,
+    options: {
+      image: `${PUBLIC_URL}/images/mod.svg`,
+      imageColor: 'gray',
+      noStyling: true,
+      tooltip: 'Translate Message',
+    },
+    htmlOptions: {
+      button: {
+        classList: ['cats-translation-button'],
+      }
+    },
+    onClick: () => {
+      TranslatorModule.translate(sourceMessage).then((data) => {
+        if (!data) return;
+        if (data.text === sourceMessage) return;
+        const element = createTranslatedMessage(data, messageId);
+
+        if (!element) return;
+        messageElement.appendChild(element);
+      });
+    }
+  });
+}
+
+function createTranslatedMessage(translatedMessage: TranslatedMessage, messageId: string) {
+  if (ElementWrap(`cats-translated-message-${messageId}`)) return;
+  const element = ElementCreate({
+    tag: 'div',
+    classList: ['ChatMessage', 'deeplib-message', 'translated-message'],
+    attributes: {
+      id: `cats-translated-message-${messageId}`,
+      'data-time': ChatRoomCurrentTime(),
+      'data-sender': Player.MemberNumber?.toString(),
+    },
+    children: [
+      {
+        tag: 'img',
+        attributes: {
+          src: `${PUBLIC_URL}/images/mod.svg`,
+        }
+      },
+      {
+        tag: 'span',
+        children: CommonStringPartitionReplace(translatedMessage.text, {
+          '\n': ElementCreate({
+            tag: 'br',
+          }),
+        }),
+      },
+      {
+        tag: 'div',
+        classList: ['cats-message-meta'],
+        children: [
+          `(Translated from ${googleSourceLanguages[translatedMessage.sourceLanguage]} — `,
+          {
+            tag: 'a',
+            attributes: {
+              href: '#',
+            },
+            children: ['Dismiss'],
+            eventListeners: {
+              click: () => {
+                element.remove();
+              },
+            },
+          },
+          ')'
+        ],
+      },
+    ]
+  });
+  catsify(element);
+
+  return element;
 }
