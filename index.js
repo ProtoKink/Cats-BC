@@ -4,7 +4,7 @@
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
   // <define:MOD_INFO>
-  var define_MOD_INFO_default = { name: "CATS", fullName: "Chat Auto Translator System", repository: "https://github.com/ProtoKink/CATS-BC" };
+  var define_MOD_INFO_default = { name: "CATS", fullName: "Chat Auto Translator System", repository: "https://github.com/ProtoKink/Cats-BC" };
 
   // node_modules/.pnpm/bc-deeplib@5.0.0_sass-embedded@1.100.0/node_modules/bc-deeplib/dist/deeplib.js
   var ye = Object.create;
@@ -201,7 +201,7 @@
       if (this.options.help) {
         let i = this.options.help.onClick, o = r(() => {
         }, "action");
-        typeof i == "string" || i instanceof URL ? o = r(() => window.open(i, "_blank"), "action") : typeof i == "function" ? o = i : i instanceof t && (o = r(async () => await this.setSubscreen(i), "action")), this.options.help.tooltip ??= g("settings.button.help_button_hint"), this.options.help.icon ??= `${"https://protokink.github.io/CATS-BC/public"}/dl_images/bookmark.svg`;
+        typeof i == "string" || i instanceof URL ? o = r(() => window.open(i, "_blank"), "action") : typeof i == "function" ? o = i : i instanceof t && (o = r(async () => await this.setSubscreen(i), "action")), this.options.help.tooltip ??= g("settings.button.help_button_hint"), this.options.help.icon ??= `${"https://protokink.github.io/Cats-BC/public"}/dl_images/bookmark.svg`;
         let s = u.createButton({ id: "deeplib-help", size: [90, 90], onClick: o, options: { image: this.options.help.icon, tooltip: this.options.help.tooltip } });
         t.menu.append(s);
       }
@@ -212,7 +212,7 @@
       if (this.options.doShowExitButton) {
         let i = u.createButton({ id: "deeplib-exit", size: [90, 90], onClick: r(() => {
           this.exit();
-        }, "onClick"), options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/exit.svg`, tooltip: g("settings.button.back_button_hint") } });
+        }, "onClick"), options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/exit.svg`, tooltip: g("settings.button.back_button_hint") } });
         t.menu.append(i);
       }
       let n = u.createTooltip();
@@ -1195,9 +1195,9 @@
     }, "setNextTooltip");
     return ElementCreate({ tag: "div", classList: ["deeplib-prev-next"], attributes: { id: t8.id }, children: [u.createButton({ id: `deeplib-prev-next-${t8.id}-prev-button`, onClick: r(() => {
       t8.back({ setLabel: n, setBackTooltip: i, setNextTooltip: o });
-    }, "onClick"), htmlOptions: { button: { classList: ["deeplib-prev-next-button"] } }, options: { noStyling: true, image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/arrow_left.svg`, tooltip: t8.initialPrevTooltip } }), u.createLabel({ id: `${t8.id}-label`, label: t8.initialLabel, htmlOptions: { classList: ["deeplib-prev-next-label"] } }), u.createButton({ id: `deeplib-prev-next-${t8.id}-next-button`, onClick: r(() => {
+    }, "onClick"), htmlOptions: { button: { classList: ["deeplib-prev-next-button"] } }, options: { noStyling: true, image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/arrow_left.svg`, tooltip: t8.initialPrevTooltip } }), u.createLabel({ id: `${t8.id}-label`, label: t8.initialLabel, htmlOptions: { classList: ["deeplib-prev-next-label"] } }), u.createButton({ id: `deeplib-prev-next-${t8.id}-next-button`, onClick: r(() => {
       t8.next({ setLabel: n, setBackTooltip: i, setNextTooltip: o });
-    }, "onClick"), htmlOptions: { button: { classList: ["deeplib-prev-next-button"] } }, options: { noStyling: true, image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/arrow_right.svg`, tooltip: t8.initialNextTooltip } })] });
+    }, "onClick"), htmlOptions: { button: { classList: ["deeplib-prev-next-button"] } }, options: { noStyling: true, image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/arrow_right.svg`, tooltip: t8.initialNextTooltip } })] });
   }
   __name(Xe, "Xe");
   r(Xe, "elementPrevNext");
@@ -1222,7 +1222,7 @@
       super.load();
       let e = u.createButton({ id: "exit", size: [90, 90], onClick: r(() => {
         this.exit();
-      }, "onClick"), options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/exit.svg`, tooltip: g("settings.button.back_button_hint") } }), n = document.getElementById("deeplib-nav-menu");
+      }, "onClick"), options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/exit.svg`, tooltip: g("settings.button.back_button_hint") } }), n = document.getElementById("deeplib-nav-menu");
       n && n.append(e);
       for (let o of this.subscreens) {
         if (o.options.name === "mainmenu") continue;
@@ -1235,25 +1235,25 @@
       if (b.appendToSubscreen(i), t4.options.wikiLink) {
         let o = u.createButton({ id: "deeplib-wiki-button", onClick: r(() => {
           window.open(t4.options.wikiLink, "_blank");
-        }, "onClick"), size: [null, 80], options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/notebook.svg`, label: g("mainmenu.button.wiki") } });
+        }, "onClick"), size: [null, 80], options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/notebook.svg`, label: g("mainmenu.button.wiki") } });
         b.appendToMiscDiv(o);
       }
       if (t4.options.repoLink) {
         let o = u.createButton({ id: "deeplib-repo-button", onClick: r(() => {
           window.open(t4.options.repoLink, "_blank");
-        }, "onClick"), size: [null, 80], options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/git.svg`, label: g("mainmenu.button.repo") } });
+        }, "onClick"), size: [null, 80], options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/git.svg`, label: g("mainmenu.button.repo") } });
         b.appendToMiscDiv(o);
       }
       if (t4.options.resetSubscreen) {
         let o = u.createButton({ id: "deeplib-reset-button", onClick: r(() => {
           this.setSubscreen(t4.options.resetSubscreen);
-        }, "onClick"), size: [null, 80], options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/trash_bin.svg`, label: g("mainmenu.button.reset") } });
+        }, "onClick"), size: [null, 80], options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/trash_bin.svg`, label: g("mainmenu.button.reset") } });
         b.appendToMiscDiv(o);
       }
       if (t4.options.importExportSubscreen) {
         let o = u.createButton({ id: "deeplib-import-export-button", onClick: r(() => {
           this.setSubscreen(t4.options.importExportSubscreen);
-        }, "onClick"), size: [null, 80], options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/transfer.svg`, label: g("mainmenu.button.import_export") } });
+        }, "onClick"), size: [null, 80], options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/transfer.svg`, label: g("mainmenu.button.import_export") } });
         b.appendToMiscDiv(o);
       }
       if (t4.options.storageFullnessIndicator) {
@@ -1263,7 +1263,7 @@
       if (C("DebugModule")) {
         let o = u.createButton({ id: "deeplib-debug-button", onClick: r(() => {
           this.setSubscreen(new j(C("DebugModule")));
-        }, "onClick"), size: [90, 90], options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/bug.svg` } });
+        }, "onClick"), size: [90, 90], options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/bug.svg` } });
         n && n.prepend(o);
       }
     }
@@ -1297,7 +1297,7 @@
     static LibTranslation = {};
     static ModTranslation = {};
     static PathToModTranslation;
-    static PathToLibTranslation = `${"https://protokink.github.io/CATS-BC/public"}/dl_translations/`;
+    static PathToLibTranslation = `${"https://protokink.github.io/Cats-BC/public"}/dl_translations/`;
     static DefaultLanguage = "en";
     static FetchFolder = false;
     static initialized = false;
@@ -1485,19 +1485,19 @@
       super.load();
       let e = u.createButton({ id: "deeplib-import-file-button", size: [600, 90], onClick: r(() => {
         this.dataImport("file");
-      }, "onClick"), options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/file_import.svg`, label: g("import-export.button.import_file") } });
+      }, "onClick"), options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/file_import.svg`, label: g("import-export.button.import_file") } });
       b.appendToSettingsDiv(e);
       let n = u.createButton({ id: "deeplib-export-file-button", size: [600, 90], onClick: r(() => {
         this.dataExport("file");
-      }, "onClick"), options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/file_export.svg`, label: g("import-export.button.export_file") } });
+      }, "onClick"), options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/file_export.svg`, label: g("import-export.button.export_file") } });
       b.appendToSettingsDiv(n);
       let i = u.createButton({ id: "deeplib-import-clipboard-button", size: [600, 90], onClick: r(() => {
         this.dataImport("clipboard");
-      }, "onClick"), options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/clipboard_import.svg`, label: g("import-export.button.import_clipboard") } });
+      }, "onClick"), options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/clipboard_import.svg`, label: g("import-export.button.import_clipboard") } });
       b.appendToSettingsDiv(i);
       let o = u.createButton({ id: "deeplib-export-clipboard-button", size: [600, 90], onClick: r(() => {
         this.dataExport("clipboard");
-      }, "onClick"), options: { image: `${"https://protokink.github.io/CATS-BC/public"}/dl_images/clipboard_export.svg`, label: g("import-export.button.export_clipboard") } });
+      }, "onClick"), options: { image: `${"https://protokink.github.io/Cats-BC/public"}/dl_images/clipboard_export.svg`, label: g("import-export.button.export_clipboard") } });
       b.appendToSettingsDiv(o);
     }
     resize() {
@@ -2099,7 +2099,7 @@
     }
     static subscreenOptions = {
       name: "translator",
-      icon: `${"https://protokink.github.io/CATS-BC/public"}/images/translator.svg`
+      icon: `${"https://protokink.github.io/Cats-BC/public"}/images/translator.svg`
     };
     get settings() {
       return super.settings;
@@ -2237,7 +2237,7 @@ ${res.status} ${res.statusText}`
     }
     static subscreenOptions = {
       name: "global",
-      icon: `${"https://protokink.github.io/CATS-BC/public"}/images/cog.svg`
+      icon: `${"https://protokink.github.io/Cats-BC/public"}/images/cog.svg`
     };
     get settings() {
       return super.settings;
@@ -2406,7 +2406,7 @@ ${res.status} ${res.statusText}`
     return u.createButton({
       id: `cats-translation-button-${messageId}`,
       options: {
-        image: `${"https://protokink.github.io/CATS-BC/public"}/images/mod.svg`,
+        image: `${"https://protokink.github.io/Cats-BC/public"}/images/mod.svg`,
         imageColor: "gray",
         noStyling: true,
         tooltip: "Translate Message"
@@ -2442,7 +2442,7 @@ ${res.status} ${res.statusText}`
         {
           tag: "img",
           attributes: {
-            src: `${"https://protokink.github.io/CATS-BC/public"}/images/mod.svg`
+            src: `${"https://protokink.github.io/Cats-BC/public"}/images/mod.svg`
           }
         },
         {
@@ -2511,7 +2511,7 @@ ${res.status} ${res.statusText}`
       GUI: new k({
         buttonText: "CATS",
         identifier: "CATS",
-        image: `${"https://protokink.github.io/CATS-BC/public"}/images/mod.svg`
+        image: `${"https://protokink.github.io/Cats-BC/public"}/images/mod.svg`
       }),
       GlobalModule: new GlobalModule(),
       CommandsModule: new CommandsModule(),
@@ -2523,7 +2523,7 @@ ${res.status} ${res.statusText}`
       })
     },
     translationOptions: {
-      pathToTranslationsFolder: `${"https://protokink.github.io/CATS-BC/public"}/translations/`,
+      pathToTranslationsFolder: `${"https://protokink.github.io/Cats-BC/public"}/translations/`,
       fixedLanguage: true
     },
     mainMenuOptions: {
@@ -2532,8 +2532,8 @@ ${res.status} ${res.statusText}`
       })
     },
     initFunction: /* @__PURE__ */ __name(() => {
-      H.injectEmbed("cats-settings-style", `${"https://protokink.github.io/CATS-BC/public"}/styles/settings.css`);
-      H.injectEmbed("cats-chat-style", `${"https://protokink.github.io/CATS-BC/public"}/styles/chat.css`);
+      H.injectEmbed("cats-settings-style", `${"https://protokink.github.io/Cats-BC/public"}/styles/settings.css`);
+      H.injectEmbed("cats-chat-style", `${"https://protokink.github.io/Cats-BC/public"}/styles/chat.css`);
     }, "initFunction")
   });
 })();
